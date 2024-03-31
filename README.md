@@ -8,31 +8,31 @@ Japanese keyboard.
 
 ## Files
 
-・diykeypad64.ino : ソース。開発環境はArduino IDE(Arduino-Pico)。
+・diykeypad64.ino : ソースファイル。開発環境はArduino IDE(Arduino-Pico)です。
 
-・8x8font.h : フォント。
+・8x8font.h : フォントデータ。
 
-・diykeypad64__schematics.png : 回路図
+・diykeypad64_schematics.png : 回路図。
 
 ・STL_file : 3Dプリンタ用データ。
 ![stl_file](https://github.com/nicotakuya/diy-keypad64/assets/5597377/2651c217-1ef1-43aa-9d04-8b4432c38859)
 
-・DIYKEYPAD64.COMP : CADLUS X用データ。
+・DIYKEYPAD64.COMP : CADLUS X用プリント基板CADデータ。
 ![diykeypad64_pcb](https://github.com/nicotakuya/diy-keypad64/assets/5597377/92ef58e3-59f5-44e1-a5af-83902d08caf4)
 
 ## Parts
 
-・U1:Raspberry Pi Pico。
+・U1 : Raspberry Pi Pico。
 
-・U2: 1.77inch TFT LCD(AE-ATM0177B3A)。
+・U2 : 1.77inch TFT LCD(AE-ATM0177B3A)。
 
-・U3:74HC164。
+・U3 : Logic IC 74HC164。
 
-・D1-D8:ダイオード。
+・D1-D8 : 小信号ダイオード。
 
-・D9:ショットキーバリアダイオード。
+・D9 : 整流用ショットキーバリアダイオード。電池駆動させたい場合に使用します。
 
-・SW1-64:スイッチ。
+・SW1-64 : タクトスイッチ。
 
 ## Bugs
 
