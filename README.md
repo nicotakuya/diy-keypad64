@@ -12,6 +12,8 @@ Japanese keyboard.
 
 ・8x8font.h : フォント。
 
+・diykeypad64__schematics.png : 回路図
+
 ・STL_file : 3Dプリンタ用データ。
 ![stl_file](https://github.com/nicotakuya/diy-keypad64/assets/5597377/2651c217-1ef1-43aa-9d04-8b4432c38859)
 
