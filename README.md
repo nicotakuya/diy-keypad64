@@ -36,37 +36,17 @@ Japanese layout USB keyboard.
 
 ・SW1-64 : タクトスイッチ。
 
-## Bugs
+## How to build
 
-以下のキーが正しく入力されません。
+このプログラムではsendReport関数を使ってキーコードを直接送信することで日本語キーボードレイアウトに対応させています。
+そのため、"Keyboard.h"を自前で書き換えて、sendReport関数をprivateからpublicに変更する必要があります。
+Windowsの場合、"Keyboard.h"は以下のディレクトリに存在します。
 
-^→&
+C:\Users\(ユーザー名)\AppData\Local\Arduino**\packages\rp2040\hardware\rp2040\*.*.*\libraries\Keyboard\src\Keyboard.h
 
-@→'
+C:\Users\(ユーザー名)\AppData\Local\Arduino**\libraries\Keyboard\src\Keyboard.h
 
-:→+
-
-]→[
-
-[→@
-
-\→]
-
-`→無反応
-
-SHIFT and @→"
-
-SHIFT and :→+
-
-SHIFT and ;→+
-
-SHIFT and ^→&
-
-SHIFT and \→}
-
-SHIFT and [→`
-
-SHIFT and ]→{
+C:\Users\(ユーザー名)\Documents\Arduino\libraries\Keyboard\src\Keyboard.h
 
 ## Movie
 
