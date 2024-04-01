@@ -38,13 +38,16 @@ Japanese layout USB keyboard.
 
 ## How to build
 
-このプログラムではsendReport関数を使ってキーコードを直接送信することで日本語キーボードレイアウトに対応させています。
+このプログラムではKeyboardライブラリのsendReport関数を使ってキーコードを直接送信することで日本語のレイアウトに対応させています。
 そのため、"Keyboard.h"を自前で書き換えて、sendReport関数をprivateからpublicに変更する必要があります。
+
+![change_headerfile](https://github.com/nicotakuya/diy-keypad64/assets/5597377/d71338d0-ba68-4275-a02b-77843d085776)
+
 Windowsの場合、"Keyboard.h"は以下のディレクトリに存在します。
 
-C:\Users\(ユーザー名)\AppData\Local\Arduino**\packages\rp2040\hardware\rp2040\*.*.*\libraries\Keyboard\src\Keyboard.h
+C:\Users\(ユーザー名)\AppData\Local\Arduinoxx\packages\rp2040\hardware\rp2040\x.x.x\libraries\Keyboard\src\Keyboard.h
 
-C:\Users\(ユーザー名)\AppData\Local\Arduino**\libraries\Keyboard\src\Keyboard.h
+C:\Users\(ユーザー名)\AppData\Local\Arduinoxx\libraries\Keyboard\src\Keyboard.h
 
 C:\Users\(ユーザー名)\Documents\Arduino\libraries\Keyboard\src\Keyboard.h
 
