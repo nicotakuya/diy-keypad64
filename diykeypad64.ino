@@ -3,79 +3,89 @@
 
 #include <Wire.h>
 #include <SPI.h>
-#include "Keyboard.h"
 #include "8x8font.h"
+#include "Keyboard.h"
+// "Keyboard.h"を書き換えてsendReport関数をpublicに加える必要があります。
 
 #define KEY_GPIOCLK 28
 #define KEY_GPIODAT 27
 #define KEY_GPIOINP 8
 
-const char key_table[]=
+// original keycode
+#define KC_LCTRL  0xf0 // LEFT CTRL
+#define KC_LSHIFT 0xf1 // LEFT SHIFT
+#define KC_LALT   0xf2 // LEFT ALT
+#define KC_RCTRL  0xf4 // RIGHT CTRL
+#define KC_RSHIFT 0xf5 // RIGHT SHIFT
+#define KC_RALT   0xf6 // RIGHT ALT
+
+// keycode(japanese layout)
+const uint8_t key_table[]=
 {
-  KEY_ESC,        /*0:esc*/
-  KEY_UP_ARROW,   /*1:up*/
-  ' ',            /*2:none*/
-  KEY_LEFT_ARROW, /*3:left */
-  KEY_RIGHT_ARROW,/*4:right */
-  ' ',            /*5:fnc */
-  KEY_DOWN_ARROW, /*6:down */
-  KEY_LEFT_ALT,   /*7:alt */
-  ' ',            /*8:kanji*/
-  '1',            /*9:1 */
-  KEY_TAB,        /*10:tab */
-  'q',            /*11:q */
-  KEY_LEFT_SHIFT, /*12:shift */
-  'a',            /*13:a */
-  KEY_LEFT_CTRL,  /*14:ctrl */
-  'z',            /*15:z */
-  '2',            /*16:2 */
-  '3',            /*17:3 */
-  'w',            /*18:w */
-  'e',            /*19:e */
-  's',            /*20:s */
-  'd',            /*21:d */
-  'x',            /*22:x */
-  'c',            /*23:c */
-  '4',            /*24:4 */
-  '5',            /*25:5 */
-  'r',            /*26:r */
-  't',            /*27:t */
-  'f',            /*28:f */
-  'g',            /*29:g */
-  'v',            /*30:v */
-  'b',            /*31:b */
-  '6',            /*32:6 */
-  '7',            /*33:7 */
-  'y',            /*34:y */
-  'u',            /*35:u */
-  'h',            /*36:h */
-  'j',            /*37:j */
-  'n',            /*38:n */
-  'm',            /*39:m */
-  '8',            /*40:8 */
-  '9',            /*41:9 */
-  'i',            /*42:i */
-  'o',            /*43:o */
-  'k',            /*44:k */
-  'l',            /*45:l */
-  ',',            /*46:, */
-  '.',            /*47:. */
-  '0',            /*48:0 */
-  '-',            /*49:- */
-  'p',            /*50:p */
-  '@',            /*51:@ */
-  ';',            /*52: ; */
-  ':',            /*53: : */
-  '/',            /*54: / */
-  '\\',           /*55:back slash*/
-  '^',            /*56:^ */
-  '\\',           /*57:yen*/
-  '[',            /*58:[ */
-  KEY_DELETE,     /*59:del*/
-  ']',            /*60:] */
-  KEY_RETURN,     /*61:enter*/
-  ' ',            /*62:space*/
-  KEY_BACKSPACE   /*63:back space*/
+  0x29,        /*0:ESC */
+  0x52,        /*1:UP */
+  0x39,        /*2:CAPS */
+  0x50,        /*3:LEFT */
+  0x4F,        /*4:RIGHT */
+  0x2C,        /*5:FNC */
+  0x51,        /*6:DOWN */
+  KC_LALT,     /*7:ALT */
+  0x35,        /*8:全角/半角*/
+  0x1E,        /*9:1 */
+  0x2B,        /*10:TAB */
+  0x14,        /*11:Q */
+  KC_LSHIFT,   /*12:SHIFT */
+  0x04,        /*13:A */
+  KC_LCTRL,    /*14:CTRL */
+  0x1D,        /*15:Z */
+  0x1F,        /*16:2 */
+  0x20,        /*17:3 */
+  0x1A,        /*18:W */
+  0x08,        /*19:E */
+  0x16,        /*20:S */
+  0x07,        /*21:D */
+  0x1B,        /*22:X */
+  0x06,        /*23:C */
+  0x21,        /*24:4 */
+  0x22,        /*25:5 */
+  0x15,        /*26:R */
+  0x17,        /*27:T */
+  0x09,        /*28:F */
+  0x0A,        /*29:G */
+  0x19,        /*30:V */
+  0x05,        /*31:B */
+  0x23,        /*32:6 */
+  0x24,        /*33:7 */
+  0x1C,        /*34:Y */
+  0x18,        /*35:U */
+  0x0B,        /*36:H */
+  0x0D,        /*37:J */
+  0x11,        /*38:N */
+  0x10,        /*39:M */
+  0x25,        /*40:8 */
+  0x26,        /*41:9 */
+  0x0C,        /*42:I */
+  0x12,        /*43:O */
+  0x0E,        /*44:K */
+  0x0F,        /*45:L */
+  0x36,        /*46:, */
+  0x37,        /*47:. */
+  0x27,        /*48:0 */
+  0x2D,        /*49:- */
+  0x13,        /*50:P */
+  0x2F,        /*51:@ */
+  0x33,        /*52: ; */
+  0x34,        /*53: : */
+  0x38,        /*54: / */
+  0x87,        /*55:BACK SLASH*/
+  0x2E,        /*56:^ */
+  0x89,        /*57:YEN */
+  0x30,        /*58:[ */
+  0x4C,        /*59:DEL */
+  0x32,        /*60:] */
+  0x28,        /*61:ENTER */
+  0x2C,        /*62:SPACE */
+  0x2A         /*63:BACK SPACE */
 };
 
 #define ATM0177B3A 1  // 1.7inch TFT Display
@@ -757,7 +767,6 @@ void vram_puthex(unsigned char num)
   }
 }
 
-
 // SCROLL
 void vram_scroll(int xd,int yd)
 {
@@ -785,38 +794,14 @@ unsigned char num_to_bcd(unsigned char num){
   return((numhigh << 4) + numlow);
 }
 
-// DEMO
-void chardemo(void)
-{
-  int x,y;
-  unsigned char chrnum;
-  unsigned int color1;
-  int timeout;
-
-  vram_cls();
-  chrnum=0x20;
-  vram_locate(0, (VRAMYMAX+1)-(8*putch_zoom));
-  color1 = color16bit(128,255,  0);
-  vram_textcolor(color1);
-  timeout = 100;
-  while(timeout--){
-    vram_putch(chrnum);
-    chrnum++;
-    if(chrnum > 0x7f){
-      chrnum = 0x20;
-    }
-    disp_update();
-  }
-}
-
-//
+// key
+KeyReport keyreport;
 char key_stateold[64];
 
 // initialize KEY
 void key_init(void)
 {
   int i;
-
   pinMode(KEY_GPIOCLK, OUTPUT);
   pinMode(KEY_GPIODAT, OUTPUT);
   for(i=0; i<8; i++){
@@ -831,6 +816,49 @@ void key_init(void)
   }
   for(i=0 ;i<64; i++){
     key_stateold[i] = 0;
+  }
+}
+
+// キーを押す
+void press_keycode(uint8_t keycode)
+{
+  int i;
+  if(keycode >= 0xf0){ // modifier
+    uint8_t mask = 1 << (keycode - 0xf0);
+    keyreport.modifiers |= mask;
+    Keyboard.sendReport(&keyreport);
+    return;
+  }
+  for(i=0; i<6; i++){ // same keycode
+    if(keyreport.keys[i] == keycode)break;
+  }
+  if(i < 6)return; // error
+
+  for(i=0; i<6; i++){ // search keycode
+    if(keyreport.keys[i] == 0){
+      keyreport.keys[i] = keycode;
+      Keyboard.sendReport(&keyreport);
+      break;
+    }
+  }
+}
+
+// キーを放す
+void release_keycode(uint8_t keycode)
+{
+  int i;
+  if(keycode >= 0xf0){ // modifier
+    uint8_t mask = 1 << (keycode - 0xf0);
+    keyreport.modifiers &= ~mask;
+    Keyboard.sendReport(&keyreport);
+    return;
+  }
+  for(i=0; i<6; i++){ // search keycode
+    if(keyreport.keys[i] == keycode){
+      keyreport.keys[i] = 0;
+      Keyboard.sendReport(&keyreport);
+      break;
+    }
   }
 }
 
@@ -860,10 +888,10 @@ void key_ctrl(void)
       if(key_state != key_stateold[num]){
         key_stateold[num] = key_state;
         if(key_state){
-          Keyboard.press(key_table[num]);
+          press_keycode(key_table[num]);
 //          Serial.println(num);  // debug
         }else{
-          Keyboard.release(key_table[num]);
+          release_keycode(key_table[num]);
         }
       }
       num++;
@@ -872,62 +900,23 @@ void key_ctrl(void)
   delay(10);
 }
 
-// COLOR TEST
-void tft_colortest(void)
-{
-  int x,y,r,g,b,mode;
-  int vol,vol2;
-
-  for(y=0; y<VRAMYRANGE; y++)
-  {
-    for(x=0; x<VRAMXRANGE; x++)
-    {
-      mode = y / (VRAMYRANGE/4);
-      vol = 256*x/VRAMXRANGE;
-      vol2 = 256*(y % (VRAMYRANGE/4))/(VRAMYRANGE/4);
-      r = g = b = 0;
-      if(mode==0){
-        r = vol;
-        b = vol2;
-      }
-      if(mode==1){
-        g = vol;
-        r = vol2;
-      }
-      if(mode==2){
-        b = vol;
-        g = vol2;
-      }
-      if(mode==3)r = g = b = vol;
-      vram_pset(x,y,color16bit(r,g,b));
-    }
-  }
-  disp_update();
-  delay(3000);
-}
-
 //----
 void setup(void)
 {
-
   pinMode(LED_BUILTIN, OUTPUT);
   digitalWrite(LED_BUILTIN, HIGH);
-
   Keyboard.begin();
-
   Serial.begin(115200);
 //  while (!Serial) {
 //    ; // wait for serial port to connect. Needed for native USB
 //  }
 //  Serial.write("start.\n");
-
   key_init();
   disp_init();
   vram_textzoom(FONTSIZE);
   vram_putstr((unsigned char *)"DIY-KEYPAD64\n");
   vram_putstr((unsigned char *)"KEYBOARD MODE\n");
   disp_update();
-
   digitalWrite(LED_BUILTIN, LOW);
 }
 
@@ -935,7 +924,4 @@ void setup(void)
 void loop()
 {
   key_ctrl();
-
-//  tft_colortest();//demo
-//  chardemo();//demo
 }
