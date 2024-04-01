@@ -2,7 +2,7 @@
 
 ![photo1](https://github.com/nicotakuya/diy-keypad64/assets/5597377/28d7063e-c62c-4678-b45f-80d20d4d7d06)
 
-Japanese keyboard.
+Japanese layout USB keyboard.
 
 開発途中。
 
@@ -10,7 +10,7 @@ Japanese keyboard.
 
 ・diykeypad64.ino : ソースファイル。開発環境はArduino IDE(Arduino-Pico)です。
 
-・8x8font.h : フォントデータ。
+・8x8font.h : フォントデータ。https://github.com/nicotakuya/8pixelfont
 
 ・diykeypad64_schematics.png : 回路図。
 
