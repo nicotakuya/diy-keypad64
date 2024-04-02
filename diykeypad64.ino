@@ -7,6 +7,8 @@
 #include "Keyboard.h"
 // "Keyboard.h"を書き換えてsendReport関数をpublicに加える必要があります。
 
+#define JAPANESE 1 // LAYOUT(1=JP / 0=US)
+
 #define KEY_GPIOCLK 28
 #define KEY_GPIODAT 27
 #define KEY_GPIOINP 8
@@ -19,7 +21,8 @@
 #define KC_RSHIFT 0xf5 // RIGHT SHIFT
 #define KC_RALT   0xf6 // RIGHT ALT
 
-// keycode(japanese layout)
+#if JAPANESE==1
+// JP layout
 const uint8_t key_table[]=
 {
   0x29,        /*0:ESC */
@@ -87,6 +90,77 @@ const uint8_t key_table[]=
   0x2C,        /*62:SPACE */
   0x2A         /*63:BACK SPACE */
 };
+#else
+// US layout
+const uint8_t key_table[]=
+{
+  0x29,        /*0:ESC */
+  0x52,        /*1:UP */
+  0x39,        /*2:CAPS */
+  0x50,        /*3:LEFT */
+  0x4F,        /*4:RIGHT */
+  0x2C,        /*5:FNC */
+  0x51,        /*6:DOWN */
+  KC_LALT,     /*7:ALT */
+  0x35,        /*8:` */
+  0x1E,        /*9:1 */
+  0x2B,        /*10:TAB */
+  0x14,        /*11:Q */
+  KC_LSHIFT,   /*12:SHIFT */
+  0x04,        /*13:A */
+  KC_LCTRL,    /*14:CTRL */
+  0x1D,        /*15:Z */
+  0x1F,        /*16:2 */
+  0x20,        /*17:3 */
+  0x1A,        /*18:W */
+  0x08,        /*19:E */
+  0x16,        /*20:S */
+  0x07,        /*21:D */
+  0x1B,        /*22:X */
+  0x06,        /*23:C */
+  0x21,        /*24:4 */
+  0x22,        /*25:5 */
+  0x15,        /*26:R */
+  0x17,        /*27:T */
+  0x09,        /*28:F */
+  0x0A,        /*29:G */
+  0x19,        /*30:V */
+  0x05,        /*31:B */
+  0x23,        /*32:6 */
+  0x24,        /*33:7 */
+  0x1C,        /*34:Y */
+  0x18,        /*35:U */
+  0x0B,        /*36:H */
+  0x0D,        /*37:J */
+  0x11,        /*38:N */
+  0x10,        /*39:M */
+  0x25,        /*40:8 */
+  0x26,        /*41:9 */
+  0x0C,        /*42:I */
+  0x12,        /*43:O */
+  0x0E,        /*44:K */
+  0x0F,        /*45:L */
+  0x36,        /*46:, */
+  0x37,        /*47:. */
+  0x27,        /*48:0 */
+  0x2D,        /*49:- */
+  0x13,        /*50:P */
+  0x2F,        /*51:[ */
+  0x33,        /*52: ; */
+  0x34,        /*53: ' */
+  0x38,        /*54: / */
+  0x00,        /*55:NONE */
+  0x2E,        /*56:^ */
+  0x4C,        /*57:DEL */
+  0x30,        /*58:] */
+  0x31,        /*59:BACK SLASH */
+  0x00,        /*60:NONE */
+  0x28,        /*61:ENTER */
+  0x2C,        /*62:SPACE */
+  0x2A         /*63:BACK SPACE */
+};
+#endif
+
 
 #define ATM0177B3A 1  // 1.7inch TFT Display
 #define SSD1306    3  // OLED Display
@@ -916,6 +990,11 @@ void setup(void)
   vram_textzoom(FONTSIZE);
   vram_putstr((unsigned char *)"DIY-KEYPAD64\n");
   vram_putstr((unsigned char *)"KEYBOARD MODE\n");
+#if JAPANESE
+  vram_putstr((unsigned char *)"JP LAYOUT\n");
+#else
+  vram_putstr((unsigned char *)"US LAYOUT\n");
+#endif
   disp_update();
   digitalWrite(LED_BUILTIN, LOW);
 }
