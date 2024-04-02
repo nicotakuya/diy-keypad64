@@ -51,6 +51,9 @@ C:\Users\(ユーザー名)\AppData\Local\Arduinoxx\libraries\Keyboard\src\Keyboa
 
 C:\Users\(ユーザー名)\Documents\Arduino\libraries\Keyboard\src\Keyboard.h
 
+![keyboard_layout](https://github.com/nicotakuya/diy-keypad64/assets/5597377/69536995-fca8-4afb-ad20-3e140c0677e8)
+
+
 ## Movie
 
 https://www.youtube.com/watch?v=7XjSDxZpHL8
