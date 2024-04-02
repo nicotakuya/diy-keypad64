@@ -4,7 +4,7 @@
 
 ## Overview
 
-Japanese layout USB keyboard.
+USB keyboard.
 
 開発途中。
 
@@ -53,6 +53,9 @@ C:\Users\(ユーザー名)\Documents\Arduino\libraries\Keyboard\src\Keyboard.h
 
 ![keyboard_layout](https://github.com/nicotakuya/diy-keypad64/assets/5597377/69536995-fca8-4afb-ad20-3e140c0677e8)
 
+ソース内のJAPANESEの値を1にするとJPレイアウト。0にするとUSレイアウトにできます。
+現時点で基板のシルク印刷はJPレイアウトだけ存在します。
+USレイアウトの場合、紙を貼って修正する必要があります。
 
 ## Movie
 
