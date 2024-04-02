@@ -19,7 +19,7 @@ USB keyboard.
 ・STL_file : 3Dプリンタ用データ。
 ![stl_file](https://github.com/nicotakuya/diy-keypad64/assets/5597377/2651c217-1ef1-43aa-9d04-8b4432c38859)
 
-・DIYKEYPAD64.COMP : CADLUS X用プリント基板CADデータ。
+・DIYKEYPAD64.COMP : CADLUS X用プリント基板CADデータ。JPレイアウト。
 ![diykeypad64_pcb](https://github.com/nicotakuya/diy-keypad64/assets/5597377/92ef58e3-59f5-44e1-a5af-83902d08caf4)
 
 ## Parts
@@ -53,10 +53,10 @@ C:\Users\(ユーザー名)\Documents\Arduino\libraries\Keyboard\src\Keyboard.h
 
 ![keyboard_layout](https://github.com/nicotakuya/diy-keypad64/assets/5597377/69536995-fca8-4afb-ad20-3e140c0677e8)
 
-ソース内のJAPANESEの値を1にするとJPレイアウト。0にするとUSレイアウトにできます。
-現時点で基板のシルク印刷はJPレイアウトだけ存在します。
-USレイアウトの場合、紙を貼って修正する必要があります。
+キーのレイアウト。ソース内のJAPANESEの値を1にするとJPレイアウト。0にするとUSレイアウトにできます。
 
 ## Movie
 
 https://www.youtube.com/watch?v=7XjSDxZpHL8
+
+https://www.youtube.com/watch?v=5BQIFQNOXi8
