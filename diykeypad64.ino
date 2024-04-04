@@ -9,6 +9,7 @@
 
 #define JAPANESE 1 // LAYOUT(1=JP / 0=US)
 
+#define KEY_MAX     128 // 64key + fnc64key
 #define KEY_GPIOCLK 28
 #define KEY_GPIODAT 27
 #define KEY_GPIOINP 8
@@ -23,17 +24,17 @@
 
 #if JAPANESE==1
 // JP layout
-const uint8_t key_table[]=
+const uint8_t key_table[KEY_MAX]=
 {
   0x29,        /*0:ESC */
   0x52,        /*1:UP */
-  0x39,        /*2:CAPS */
+  0x00,        /*2:NONE */
   0x50,        /*3:LEFT */
   0x4F,        /*4:RIGHT */
-  0x2C,        /*5:FNC */
+  0x00,        /*5:FNC */
   0x51,        /*6:DOWN */
   KC_LALT,     /*7:ALT */
-  0x35,        /*8:全角/半角*/
+  0x35,        /*8:ZEN/HAN*/
   0x1E,        /*9:1 */
   0x2B,        /*10:TAB */
   0x14,        /*11:Q */
@@ -74,7 +75,7 @@ const uint8_t key_table[]=
   0x36,        /*46:, */
   0x37,        /*47:. */
   0x27,        /*48:0 */
-  0x2D,        /*49:- */
+  0x2D,        /*49:-*/
   0x13,        /*50:P */
   0x2F,        /*51:@ */
   0x33,        /*52: ; */
@@ -88,18 +89,83 @@ const uint8_t key_table[]=
   0x32,        /*60:] */
   0x28,        /*61:ENTER */
   0x2C,        /*62:SPACE */
-  0x2A         /*63:BACK SPACE */
+  0x2A,        /*63:BACK SPACE */
+  /* FNC */
+  0x00,        /*0:ESC */
+  0x4B,        /*1:UP -> PAGE UP*/
+  0x00,        /*2:NONE */
+  0x4A,        /*3:LEFT -> HOME*/
+  0x4D,        /*4:RIGHT -> END*/
+  0x00,        /*5:FNC */
+  0x4E,        /*6:DOWN -> PAGE DW*/
+  KC_LALT,     /*7:ALT */
+  0x00,        /*8:ZEN/HAN */
+  0x3A,        /*9:1 -> F1*/
+  0x00,        /*10:TAB */
+  0x00,        /*11:Q */
+  KC_LSHIFT,   /*12:SHIFT */
+  0x00,        /*13:A */
+  KC_LCTRL,    /*14:CTRL */
+  0x00,        /*15:Z */
+  0x3B,        /*16:2 -> F2*/
+  0x3C,        /*17:3 -> F3*/
+  0xE3,        /*18:W -> WINDOWS */
+  0x00,        /*19:E */
+  0x00,        /*20:S */
+  0x00,        /*21:D */
+  0x00,        /*22:X */
+  0x00,        /*23:C */
+  0x3D,        /*24:4 -> F4*/
+  0x3E,        /*25:5 -> F5*/
+  0x00,        /*26:R */
+  0x00,        /*27:T */
+  0x00,        /*28:F */
+  0x00,        /*29:G */
+  0x00,        /*30:V */
+  0x48,        /*31:B -> BREAK*/
+  0x3F,        /*32:6 -> F6*/
+  0x40,        /*33:7 -> F7*/
+  0x00,        /*34:Y */
+  0x00,        /*35:U */
+  0x00,        /*36:H */
+  0x00,        /*37:J */
+  0x00,        /*38:N */
+  0x00,        /*39:M */
+  0x41,        /*40:8 -> F8*/
+  0x42,        /*41:9 -> F9*/
+  0x00,        /*42:I */
+  0x00,        /*43:O */
+  0x00,        /*44:K */
+  0x00,        /*45:L */
+  0x00,        /*46:, */
+  0x00,        /*47:. */
+  0x43,        /*48:0 -> F10*/
+  0x44,        /*49:- -> F11*/
+  0x46,        /*50:P -> PRINT SCREEN*/
+  0x00,        /*51:@ */
+  0x00,        /*52: ; */
+  0x00,        /*53: : */
+  0x00,        /*54: / */
+  0x00,        /*55:BACK SLASH */
+  0x45,        /*56:^  -> F12*/
+  0x00,        /*57:YEN */
+  0x00,        /*58:[ */
+  0x49,        /*59:DEL -> INSERT*/
+  0x00,        /*60:] */
+  0x00,        /*61:ENTER */
+  0x00,        /*62:SPACE */
+  0x00         /*63:BACK SPACE */
 };
 #else
 // US layout
-const uint8_t key_table[]=
+const uint8_t key_table[KEY_MAX]=
 {
   0x29,        /*0:ESC */
   0x52,        /*1:UP */
   0x39,        /*2:CAPS */
   0x50,        /*3:LEFT */
   0x4F,        /*4:RIGHT */
-  0x2C,        /*5:FNC */
+  0x00,        /*5:FNC */
   0x51,        /*6:DOWN */
   KC_LALT,     /*7:ALT */
   0x35,        /*8:` */
@@ -150,17 +216,81 @@ const uint8_t key_table[]=
   0x34,        /*53: ' */
   0x38,        /*54: / */
   0x00,        /*55:NONE */
-  0x2E,        /*56:^ */
+  0x2E,        /*56: = */
   0x4C,        /*57:DEL */
   0x30,        /*58:] */
   0x31,        /*59:BACK SLASH */
   0x00,        /*60:NONE */
   0x28,        /*61:ENTER */
   0x2C,        /*62:SPACE */
-  0x2A         /*63:BACK SPACE */
+  0x2A,        /*63:BACK SPACE */
+  /* FNC */
+  0x00,        /*0:ESC */
+  0x4B,        /*1:UP -> PAGE UP*/
+  0x00,        /*2:NONE */
+  0x4A,        /*3:LEFT -> HOME*/
+  0x4D,        /*4:RIGHT -> END*/
+  0x00,        /*5:FNC */
+  0x4E,        /*6:DOWN -> PAGE DW*/
+  KC_LALT,     /*7:ALT */
+  0x00,        /*8:` */
+  0x3A,        /*9:1 -> F1*/
+  0x00,        /*10:TAB */
+  0x00,        /*11:Q */
+  KC_LSHIFT,   /*12:SHIFT */
+  0x00,        /*13:A */
+  KC_LCTRL,    /*14:CTRL */
+  0x00,        /*15:Z */
+  0x3B,        /*16:2 -> F2*/
+  0x3C,        /*17:3 -> F3*/
+  0xE3,        /*18:W -> WINDOWS */
+  0x00,        /*19:E */
+  0x00,        /*20:S */
+  0x00,        /*21:D */
+  0x00,        /*22:X */
+  0x00,        /*23:C */
+  0x3D,        /*24:4 -> F4*/
+  0x3E,        /*25:5 -> F5*/
+  0x00,        /*26:R */
+  0x00,        /*27:T */
+  0x00,        /*28:F */
+  0x00,        /*29:G */
+  0x00,        /*30:V */
+  0x48,        /*31:B -> BREAK*/
+  0x3F,        /*32:6 -> F6*/
+  0x40,        /*33:7 -> F7*/
+  0x00,        /*34:Y */
+  0x00,        /*35:U */
+  0x00,        /*36:H */
+  0x00,        /*37:J */
+  0x00,        /*38:N */
+  0x00,        /*39:M */
+  0x41,        /*40:8 -> F8*/
+  0x42,        /*41:9 -> F9*/
+  0x00,        /*42:I */
+  0x00,        /*43:O */
+  0x00,        /*44:K */
+  0x00,        /*45:L */
+  0x00,        /*46:, */
+  0x00,        /*47:. */
+  0x43,        /*48:0 -> F10*/
+  0x44,        /*49:- -> F11*/
+  0x46         /*50:P -> PRINT SCREEN*/
+  0x00,        /*51:[ */
+  0x00,        /*52: ; */
+  0x00,        /*53: ' */
+  0x00,        /*54: / */
+  0x00,        /*55:NONE */
+  0x45,        /*56: = -> F12*/
+  0x49,        /*57:INSERT*/
+  0x00,        /*58:] */
+  0x00,        /*59:BACK SLASH */
+  0x00,        /*60:NONE */
+  0x00,        /*61:ENTER */
+  0x00,        /*62:SPACE */
+  0x00         /*63:BACK SPACE */
 };
 #endif
-
 
 #define ATM0177B3A 1  // 1.7inch TFT Display
 #define SSD1306    3  // OLED Display
@@ -870,7 +1000,8 @@ unsigned char num_to_bcd(unsigned char num){
 
 // key
 KeyReport keyreport;
-char key_stateold[64];
+char key_statenow[KEY_MAX];
+char key_stateold[KEY_MAX];
 
 // initialize KEY
 void key_init(void)
@@ -888,7 +1019,7 @@ void key_init(void)
     delayMicroseconds(10);
     digitalWrite(KEY_GPIOCLK, HIGH);
   }
-  for(i=0 ;i<64; i++){
+  for(i=0 ;i<KEY_MAX; i++){
     key_stateold[i] = 0;
   }
 }
@@ -897,6 +1028,7 @@ void key_init(void)
 void press_keycode(uint8_t keycode)
 {
   int i;
+  if(keycode == 0)return;
   if(keycode >= 0xf0){ // modifier
     uint8_t mask = 1 << (keycode - 0xf0);
     keyreport.modifiers |= mask;
@@ -921,6 +1053,7 @@ void press_keycode(uint8_t keycode)
 void release_keycode(uint8_t keycode)
 {
   int i;
+  if(keycode == 0)return;
   if(keycode >= 0xf0){ // modifier
     uint8_t mask = 1 << (keycode - 0xf0);
     keyreport.modifiers &= ~mask;
@@ -939,11 +1072,10 @@ void release_keycode(uint8_t keycode)
 // READ KEY MATRIX
 void key_ctrl(void)
 {
-  int col,row;
-  char key_state;
-  int num;
+  #define FNC_NUM 5
+  int col,row,num;
+  char state;
 
-  num = 0;
   for(row=0; row<8; row++){
     if(row==0){
       digitalWrite(KEY_GPIODAT, LOW);
@@ -953,22 +1085,25 @@ void key_ctrl(void)
     delayMicroseconds(100);
     digitalWrite(KEY_GPIOCLK, LOW);
     delayMicroseconds(100);
-    digitalWrite(KEY_GPIOCLK, HIGH);//74HC164 CLK(立ち上がりで変化)
+    digitalWrite(KEY_GPIOCLK, HIGH); //74HC164 CLK(立ち上がりで変化)
     delayMicroseconds(200);
-    
     for(col=0; col<8; col++){
-      key_state = digitalRead(KEY_GPIOINP + col);
-      key_state ^= 1;
-      if(key_state != key_stateold[num]){
-        key_stateold[num] = key_state;
-        if(key_state){
-          press_keycode(key_table[num]);
-//          Serial.println(num);  // debug
-        }else{
-          release_keycode(key_table[num]);
-        }
+      num = (row*8) + col;
+      state = digitalRead(KEY_GPIOINP + col) ^ 1;
+      if((key_stateold[FNC_NUM]!=0)&&(num!=FNC_NUM))
+        num += 64; // FNC KEY
+      key_statenow[num] = state;
+    }
+  }
+  for(num=0; num<KEY_MAX; num++){
+    if(key_statenow[num] != key_stateold[num]){
+      key_stateold[num] = key_statenow[num];
+      if(key_statenow[num]){
+        press_keycode(key_table[num]);
+        //Serial.println(num);  // debug
+      }else{
+        release_keycode(key_table[num]);
       }
-      num++;
     }
   }
   delay(10);
