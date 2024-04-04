@@ -55,6 +55,32 @@ C:\Users\(ユーザー名)\Documents\Arduino\libraries\Keyboard\src\Keyboard.h
 
 キーのレイアウト。ソース内のJAPANESEの値を1にするとJPレイアウト。0にするとUSレイアウトにできます。
 
+FNCキーとの同時押しは以下のキーに対応しています。
+
+PAGE UP:FNC+UP
+
+PAGE DW:FNC+DOWN
+
+HOME   :FNC+LEFT
+
+END    :FNC+RIGHT
+
+F1～F9 :FNC+1～9
+
+F10    :FNC+0
+
+F11    :FNC+-
+
+F12    :FNC+^(JP) =(US)
+
+INSERT :FNC+DEL
+
+WINDOWS:FNC+W
+
+BREAK  :FNC+B
+
+PRINT SCREEN:FNC+P
+
 ## Movie
 
 https://www.youtube.com/watch?v=7XjSDxZpHL8
